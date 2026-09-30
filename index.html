@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#FCF5F7">
+    <meta name="robots" content="noindex, nofollow">
+    <title>For you</title>
+
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+
+    <!-- Fonts: Cormorant Garamond (headings), Lora (letter), Allura (handwriting), Inter (tiny labels) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Inter:wght@500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+
+<body data-state="INTRO">
+
+    <!-- Shared SVG gradients for the flowers (filled in by js/flowers.js) -->
+    <svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs id="svg-defs"></defs></svg>
+
+    <!-- ===================== Atmosphere ===================== -->
+    <div class="backdrop" aria-hidden="true"></div>
+    <div class="particles" id="particles" aria-hidden="true"></div>
+    <div class="garden" id="garden" aria-hidden="true"></div>
+
+    <!-- ===================== Envelope ===================== -->
+    <section class="envelope-stage" id="envelope-stage" aria-labelledby="page-title">
+        <h1 class="sr-only" id="page-title">A letter for you</h1>
+
+        <p class="envelope-stage__above hand" id="envelope-above"></p>
+
+        <div class="envelope-wrap">
+            <div class="envelope-float">
+                <button class="envelope" id="envelope" type="button" aria-describedby="envelope-below envelope-hint">
+                    <span class="envelope__shadow" aria-hidden="true"></span>
+                    <span class="envelope__back" aria-hidden="true"></span>
+
+                    <!-- The folded letter tucked inside -->
+                    <span class="envelope__paper" aria-hidden="true">
+                        <span class="envelope__paper-label hand" id="envelope-paper-label"></span>
+                        <span class="envelope__paper-lines"></span>
+                    </span>
+
+                    <!-- Front pocket: left, right and bottom folds -->
+                    <span class="envelope__pocket" aria-hidden="true">
+                        <svg viewBox="0 0 145 100" preserveAspectRatio="none" focusable="false">
+                            <defs>
+                                <linearGradient id="env-shade-left" x1="0" y1="0" x2="1" y2="0">
+                                    <stop offset="0" stop-color="#fff" stop-opacity=".07"/>
+                                    <stop offset="1" stop-color="#000" stop-opacity=".16"/>
+                                </linearGradient>
+                                <linearGradient id="env-shade-right" x1="1" y1="0" x2="0" y2="0">
+                                    <stop offset="0" stop-color="#000" stop-opacity=".06"/>
+                                    <stop offset="1" stop-color="#000" stop-opacity=".26"/>
+                                </linearGradient>
+                                <linearGradient id="env-shade-bottom" x1="0" y1="1" x2="0" y2="0">
+                                    <stop offset="0" stop-color="#000" stop-opacity=".14"/>
+                                    <stop offset="1" stop-color="#fff" stop-opacity=".07"/>
+                                </linearGradient>
+                                <linearGradient id="env-shade-flap" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0" stop-color="#000" stop-opacity=".16"/>
+                                    <stop offset="1" stop-color="#fff" stop-opacity=".06"/>
+                                </linearGradient>
+                            </defs>
+                            <path class="env-fill" d="M0 0L64 53Q68 56.5 64 60L0 100Z"/>
+                            <path fill="url(#env-shade-left)" d="M0 0L64 53Q68 56.5 64 60L0 100Z"/>
+                            <path class="env-fill" d="M145 0L81 53Q77 56.5 81 60L145 100Z"/>
+                            <path fill="url(#env-shade-right)" d="M145 0L81 53Q77 56.5 81 60L145 100Z"/>
+                            <path class="env-fold-shadow" d="M0 98.4L66 48.4Q72.5 43.4 79 48.4L145 98.4V100H0Z"/>
+                            <path class="env-fill" d="M0 100L66 50Q72.5 45 79 50L145 100Z"/>
+                            <path fill="url(#env-shade-bottom)" d="M0 100L66 50Q72.5 45 79 50L145 100Z"/>
+                            <path class="env-edge env-edge--light" d="M0 100L66 50Q72.5 45 79 50L145 100"/>
+                        </svg>
+                    </span>
+                    <span class="envelope__grain" aria-hidden="true"></span>
+
+                    <!-- Top flap: front (burgundy) and back (lining) faces -->
+                    <span class="envelope__flap" aria-hidden="true">
+                        <span class="flap__face flap__face--front">
+                            <svg viewBox="0 0 145 62" preserveAspectRatio="none" focusable="false">
+                                <path class="env-flap" d="M0 3Q0 0 3 0H142Q145 0 145 3L80 55Q72.5 61.5 65 55Z"/>
+                                <path fill="url(#env-shade-flap)" d="M0 3Q0 0 3 0H142Q145 0 145 3L80 55Q72.5 61.5 65 55Z"/>
+                                <path class="env-edge env-edge--light" d="M0 3L65 55Q72.5 61.5 80 55L145 3"/>
+                            </svg>
+                        </span>
+                        <span class="flap__face flap__face--back">
+                            <svg viewBox="0 0 145 62" preserveAspectRatio="none" focusable="false">
+                                <path class="env-lining" d="M0 3Q0 0 3 0H142Q145 0 145 3L80 55Q72.5 61.5 65 55Z"/>
+                                <path class="env-lining-line" d="M10 4H135L78.5 50Q72.5 55 66.5 50Z"/>
+                            </svg>
+                        </span>
+                        <span class="envelope__seal" id="envelope-seal"></span>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <p class="envelope-stage__below hand" id="envelope-below"></p>
+        <p class="envelope-stage__hint" id="envelope-hint">
+            <span class="hint-dot" aria-hidden="true"></span>
+            <span id="envelope-hint-text"></span>
+        </p>
+    </section>
+
+    <!-- ===================== Letter ===================== -->
+    <main class="letter-view" id="letter-view" hidden>
+        <article class="letter" id="letter" tabindex="-1" aria-labelledby="letter-greeting">
+            <div class="letter__ornament" aria-hidden="true">
+                <span></span>
+                <svg viewBox="0 0 10 10"><path d="M5 0L10 5L5 10L0 5Z"/></svg>
+                <span></span>
+            </div>
+
+            <p class="letter__date letter__reveal"><time id="letter-date"></time></p>
+
+            <h2 class="letter__greeting letter__reveal" id="letter-greeting"></h2>
+
+            <div class="letter__body" id="letter-body"></div>
+
+            <div class="letter__signoff letter__reveal">
+                <p class="letter__closing" id="letter-closing"></p>
+                <p class="letter__signature hand" id="letter-signature"></p>
+            </div>
+
+            <p class="letter__postscript letter__reveal" id="letter-postscript" hidden></p>
+            <p class="letter__secret-note hand" id="secret-note" hidden></p>
+
+            <!-- A tiny gold petal: the hidden easter egg -->
+            <button class="letter__secret" id="secret-toggle" type="button"
+                    aria-label="A small secret" aria-expanded="false" aria-controls="secret-note">
+                <svg viewBox="-10 -14 20 17" aria-hidden="true"><path d="M0 2C-8-2-7-12 0-13C7-12 8-2 0 2Z"/></svg>
+            </button>
+        </article>
+
+        <footer class="ending" id="ending">
+            <div class="ending__lines" id="ending-lines"></div>
+            <p class="ending__signature hand" id="ending-signature"></p>
+            <div class="ending__flower" id="ending-flower" aria-hidden="true"></div>
+        </footer>
+    </main>
+
+    <!-- ===================== Small controls ===================== -->
+    <button class="skip-intro" id="skip-intro" type="button">Skip intro</button>
+
+    <button class="music-toggle" id="music-toggle" type="button" aria-pressed="false" hidden>
+        <span class="music-toggle__note" aria-hidden="true">♪</span>
+        <span class="music-toggle__label">Our song</span>
+    </button>
+
+    <noscript>
+        <p class="noscript">This letter needs JavaScript to open. Please enable it and reload.</p>
+    </noscript>
+
+    <!-- Order matters: config first, main last. -->
+    <script src="js/config.js" defer></script>
+    <script src="js/flowers.js" defer></script>
+    <script src="js/envelope.js" defer></script>
+    <script src="js/letter.js" defer></script>
+    <script src="js/music.js" defer></script>
+    <script src="js/main.js" defer></script>
+</body>
+</html>
